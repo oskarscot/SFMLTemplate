@@ -1,20 +1,8 @@
-#include <SFML/Graphics.hpp>
+#include "window/Application.h"
 
 int main(){
-    sf::RenderWindow window(sf::VideoMode({200, 200}), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-
-    while (window.isOpen()){
-        while (const std::optional<sf::Event> event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>()){
-                window.close();
-            }
-        }
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+    const TerClone::ApplicationWindowSpec spec{1280, 720, "SFML works!"};
+    TerClone::Application app(spec);
+    app.Run();
     return 0;
 }

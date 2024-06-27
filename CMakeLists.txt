@@ -14,7 +14,7 @@ add_subdirectory("lib/sfml")
 set(SFML_INCS "lib/sfml/include")
 link_directories("${CMAKE_BINARY_DIR}/lib/sfml/lib")
 
-file(GLOB_RECURSE SOURCES src/*.cpp src/*.h)
+file(GLOB_RECURSE SOURCES src/**.cpp src/**.h)
 add_executable(SFML_TEST ${SOURCES})
 target_include_directories(SFML_TEST PRIVATE ${SFML_INCS})
 target_link_libraries(SFML_TEST sfml-graphics)
