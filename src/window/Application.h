@@ -15,12 +15,13 @@ namespace TerClone
     {
     public:
         explicit Application(const ApplicationWindowSpec& spec);
-        virtual ~Application() = default;
+        ~Application() = default;
 
-        virtual void Run();
+        void Run();
     protected:
-        virtual void Update(sf::Time deltaTime);
-        virtual void Render();
+        void Load();
+        void Update(sf::Time deltaTime);
+        void Render();
         std::unique_ptr<sf::RenderWindow> m_Window;
     };
 }
