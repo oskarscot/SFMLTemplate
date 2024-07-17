@@ -17,11 +17,11 @@ namespace TerClone
         explicit Application(const ApplicationWindowSpec& spec);
         ~Application() = default;
 
-        void Run();
+        void Run() const;
     protected:
-        void Load();
-        void Update(sf::Time deltaTime);
-        void Render();
+        void Load() const;
+        void Update(sf::Time deltaTime) const;
+        void Render() const;
         std::unique_ptr<sf::RenderWindow> m_Window;
     };
 }

@@ -1,3 +1,10 @@
-[submodule "lib/SFML"]
-	path = lib/SFML
+[submodule "lib/imgui-sfml"]
+	path = lib/imgui-sfml
+	url = https://github.com/SFML/imgui-sfml
+[submodule "lib/imgui-docking/imgui"]
+	path = lib/imgui-docking/imgui
+	url = https://github.com/ocornut/imgui
+[submodule "lib/sfml"]
+	path = lib/sfml
 	url = https://github.com/SFML/SFML.git
+	branch = 2.6.x
