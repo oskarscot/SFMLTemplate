@@ -14,23 +14,21 @@ add_subdirectory("lib/sfml")
 add_subdirectory("lib/imgui-sfml")
 add_subdirectory("lib/imgui-docking")
 
-file(GLOB_RECURSE MY_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/practical_1/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/practical_1/*.h")
 
-add_executable("${CMAKE_PROJECT_NAME}")
+add_executable(SFML_TEST ${SOURCES})
 
-set_property(TARGET "${CMAKE_PROJECT_NAME}" PROPERTY CXX_STANDARD 17)
+set_property(TARGET SFML_TEST PROPERTY CXX_STANDARD 17)
 
 if(PRODUCTION_BUILD)
-    target_compile_definitions("${CMAKE_PROJECT_NAME}" PUBLIC RESOURCES_PATH="./resources/")
-    target_compile_definitions("${CMAKE_PROJECT_NAME}" PUBLIC PRODUCTION_BUILD=1)
+    target_compile_definitions(SFML_TEST PUBLIC RESOURCES_PATH="./resources/")
+    target_compile_definitions(SFML_TEST PUBLIC PRODUCTION_BUILD=1)
 else()
-    target_compile_definitions("${CMAKE_PROJECT_NAME}" PUBLIC RESOURCES_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources/")
-    target_compile_definitions("${CMAKE_PROJECT_NAME}" PUBLIC PRODUCTION_BUILD=0)
+    target_compile_definitions(SFML_TEST PUBLIC RESOURCES_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources/")
+    target_compile_definitions(SFML_TEST PUBLIC PRODUCTION_BUILD=0)
 endif()
 
-target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${MY_SOURCES})
-
-target_link_libraries("${CMAKE_PROJECT_NAME}"
+target_link_libraries(SFML_TEST
         sfml-graphics
         sfml-window
         sfml-system

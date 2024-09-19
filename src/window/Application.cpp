@@ -2,16 +2,15 @@
 
 #include <imgui-SFML.h>
 #include <imgui.h>
-#include <unordered_map>
 
 #include "SFML/Graphics.hpp"
+#include "../entity/Player.h"
 
 namespace TerClone
 {
 
-    std::unordered_map<int32_t, sf::RectangleShape> m_Shapes; // Temporary, remove me
     sf::View m_View;
-    float color[3] = {1.f, 1.f, 1.f};
+    Player player;
 
     Application::Application(const ApplicationWindowSpec &spec)
         : m_Window(std::make_unique<sf::RenderWindow>(
@@ -21,12 +20,12 @@ namespace TerClone
             ))
     {
         printf("Application created\n");
+        Load();
     }
 
     void Application::Run() const
     {
         sf::Clock m_Clock;
-        Load();
         while (m_Window->isOpen())
         {
             sf::Event event{};
@@ -39,20 +38,19 @@ namespace TerClone
                 }
             }
 
-            ImGui::SFML::Update(*m_Window, m_Clock.restart());
-            ImGui::Begin("Hello, world!");
-            ImGui::Text("Hello!");
-            // sfml color picker
-            ImGui::ColorEdit3("Color", color);
-            m_Shapes[0].setFillColor(sf::Color(color[0] * 255, color[1] * 255, color[2] * 255));
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-            ImGui::End();
-
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
             {
                 m_Window->close();
             }
             const sf::Time deltaTime = m_Clock.restart();
+
+            ImGui::SFML::Update(*m_Window, deltaTime);
+            ImGui::Begin("Hello, world!");
+            ImGui::Text("Hello!");
+            ImGui::Text("Application average %.3f ms/frame (%.0f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+            ImGui::ColorEdit3("Colour", player.GetColour());
+            ImGui::End();
+
             Update(deltaTime);
             m_Window->clear();
             Render();
@@ -70,50 +68,25 @@ namespace TerClone
         ImGuiStyle &style = ImGui::GetStyle();
         style.Colors[ImGuiCol_WindowBg].w = 0.5f;
 
-        m_View.setSize({static_cast<float>(m_Window->getSize().x), static_cast<float>(m_Window->getSize().y)});
-        m_View.setCenter({static_cast<float>(m_Window->getSize().x) / 2, static_cast<float>(m_Window->getSize().y) / 2});
+      //  m_View.setSize({static_cast<float>(m_Window->getSize().x), static_cast<float>(m_Window->getSize().y)});
+      //  m_View.setCenter({static_cast<float>(m_Window->getSize().x) / 2, static_cast<float>(m_Window->getSize().y) / 2});
 
-        sf::RectangleShape shape({50, 50});
-        shape.setFillColor(sf::Color::Red);
-        shape.setPosition({static_cast<float>(m_Window->getSize().x) / 2, static_cast<float>(m_Window->getSize().y) / 2});
-
-        m_Shapes[0] = shape;
     }
-
-    int speed = 150;
 
     void Application::Update(const sf::Time deltaTime) const
     {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
-        {
-            m_Shapes[0].move({-1 * (deltaTime.asSeconds() * speed), 0});
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-        {
-            m_Shapes[0].move({1 * (deltaTime.asSeconds() * speed), 0});
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
-        {
-            m_Shapes[0].move({0, -1 * (deltaTime.asSeconds() * speed)});
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-        {
-            m_Shapes[0].move({0, 1 * (deltaTime.asSeconds() * speed)});
-        }
-
-        m_View.setCenter(m_Shapes[0].getPosition());
-        m_Window->setView(m_View);
+        player.Update(deltaTime);
+       // m_View.setCenter(m_Shapes[0].getPosition());
+       // m_Window->setView(m_View);
     }
 
     void Application::Render() const
     {
-        for (const auto &[index, value] : m_Shapes)
-        {
-            m_Window->draw(value);
-        }
+        // The first thing we render is the background.
+        // This is important because it will be rendered first and will be the bottom layer.
+        // Background
+        m_Window->draw(player.GetShape());
+
         ImGui::SFML::Render(*m_Window);
     }
 }
