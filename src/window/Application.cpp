@@ -12,6 +12,7 @@ namespace TerClone
         this->m_VideoMode.height = spec.height;
         this->m_VideoMode.width = spec.width;
         this->m_Window = new sf::RenderWindow(this->m_VideoMode, spec.title, spec.style);
+        this->m_Window->setFramerateLimit(144);
 
         if(ImGui::SFML::Init(*this->m_Window))
         {
@@ -50,20 +51,26 @@ namespace TerClone
             switch (this->m_Event.type)
             {
                 case sf::Event::KeyPressed:
+                {
                     if (this->m_Event.key.code == sf::Keyboard::Escape)
                     {
                         this->m_Window->close();
                     }
+                    return;
+                }
 
                 case sf::Event::Closed:
+                {
                     this->m_Window->close();
-
-                default:
+                    return;
+                }
+                default: ;
             }
         }
     }
 
-    bool Application::IsWindowOpen() const {
+    bool Application::IsWindowOpen() const
+    {
         return this->m_Window->isOpen();
     }
 }
