@@ -1,6 +1,8 @@
 #pragma once
+
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/System/String.hpp"
+#include "SFML/Window/Event.hpp"
 
 namespace TerClone
 {
@@ -9,20 +11,25 @@ namespace TerClone
         uint32_t width{};
         uint32_t height{};
         sf::String title;
+        sf::Uint32 style{};
     };
 
-    class Application
-    {
+    class Application {
+        sf::RenderWindow* m_Window = nullptr;
+        sf::Event m_Event;
+        sf::VideoMode m_VideoMode;
+
     public:
         explicit Application(const ApplicationWindowSpec& spec);
-        ~Application() = default;
+        virtual ~Application();
 
-        void Run() const;
-    protected:
-        void Load() const;
-        void Update(sf::Time deltaTime) const;
-        void Render() const;
-        std::unique_ptr<sf::RenderWindow> m_Window;
+        void Update(sf::Time deltaTime);
+
+        void Render();
+
+        void PollEvents();
+
+        bool IsWindowOpen() const;
     };
 }
 

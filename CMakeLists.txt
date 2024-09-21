@@ -14,19 +14,9 @@ add_subdirectory("lib/sfml")
 add_subdirectory("lib/imgui-sfml")
 add_subdirectory("lib/imgui-docking")
 
-file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/practical_1/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/practical_1/*.h")
+file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 add_executable(SFML_TEST ${SOURCES})
-
-set_property(TARGET SFML_TEST PROPERTY CXX_STANDARD 17)
-
-if(PRODUCTION_BUILD)
-    target_compile_definitions(SFML_TEST PUBLIC RESOURCES_PATH="./resources/")
-    target_compile_definitions(SFML_TEST PUBLIC PRODUCTION_BUILD=1)
-else()
-    target_compile_definitions(SFML_TEST PUBLIC RESOURCES_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources/")
-    target_compile_definitions(SFML_TEST PUBLIC PRODUCTION_BUILD=0)
-endif()
 
 target_link_libraries(SFML_TEST
         sfml-graphics
