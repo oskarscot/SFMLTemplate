@@ -1,4 +1,4 @@
-#include "window/Application.h"
+#include "core/Application.h"
 
 int main(){
     TerClone::ApplicationWindowSpec spec{1280, 720, "SFML Engine!!", sf::Style::Titlebar | sf::Style::Close};

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../ui/UIRenderer.h"
+#include "settings/Configuration.h"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/System/String.hpp"
 #include "SFML/Window/Event.hpp"
@@ -15,9 +17,11 @@ namespace TerClone
     };
 
     class Application {
-        sf::RenderWindow* m_Window = nullptr;
-        sf::Event m_Event;
-        sf::VideoMode m_VideoMode;
+        sf::RenderWindow* m_pWindow = nullptr;
+        sf::Event m_event{};
+        sf::VideoMode m_videoMode;
+        UIRenderer* m_pImGuiRenderer = nullptr;
+        Utils::Configuration* m_pSettings = nullptr;
 
     public:
         explicit Application(const ApplicationWindowSpec& spec);

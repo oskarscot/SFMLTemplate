@@ -13,10 +13,16 @@ set(IMGUI_SFML_FIND_SFML OFF)
 add_subdirectory("lib/sfml")
 add_subdirectory("lib/imgui-sfml")
 add_subdirectory("lib/imgui-docking")
+add_subdirectory("lib/yaml")
 
-file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/**.cpp")
 
-add_executable(SFML_TEST ${SOURCES})
+add_executable(SFML_TEST ${SOURCES}
+        src/ui/ImGuiRenderer.h
+        src/ui/UIRenderer.h
+        src/core/settings/Configuration.h
+        src/core/settings/Configuration.cpp
+)
 
 target_link_libraries(SFML_TEST
         sfml-graphics
@@ -25,4 +31,5 @@ target_link_libraries(SFML_TEST
         sfml-audio
         imgui
         ImGui-SFML::ImGui-SFML
+        yaml-cpp::yaml-cpp
 )
