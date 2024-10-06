@@ -3,10 +3,10 @@
 #include "SFML/Window/Keyboard.hpp"
 
 namespace TerClone {
-    Player::Player(const sf::Texture &texture, sf::Vector2i position)
+    Player::Player(const sf::Texture &texture, sf::Vector2i sprite_position)
     {
         SetTexture(texture);
-        SetTexturePosition(position);
+        SetTexturePosition(sprite_position);
     }
 
     void Player::Update(float deltaTime)

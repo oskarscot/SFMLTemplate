@@ -25,7 +25,7 @@ namespace TerClone
         sf::Texture m_spriteSheet;
         UIRenderer* m_pImGuiRenderer = nullptr;
         Util::Configuration* m_pSettings = nullptr;
-        Player* m_pPlayer = nullptr;
+        std::vector<std::unique_ptr<Entity>> m_entities;
 
     public:
         explicit Application(const ApplicationWindowSpec& spec);
@@ -38,6 +38,10 @@ namespace TerClone
         void PollEvents();
 
         bool IsWindowOpen() const;
+
+        void AddEntity(std::unique_ptr<Entity> entity) {
+            m_entities.emplace_back(std::move(entity));
+        }
     };
 }
 

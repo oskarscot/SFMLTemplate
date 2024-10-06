@@ -33,7 +33,7 @@ namespace TerClone
             printf("Failed to initialize ImGui SFML Window\n");
         }
 
-        this->m_pPlayer = new Player(this->m_spriteSheet, { 0,0 });
+        AddEntity(std::make_unique<Player>(this->m_spriteSheet, sf::Vector2i(0, 0)));
     }
 
     Application::~Application()
@@ -49,15 +49,22 @@ namespace TerClone
         if(this->m_pImGuiRenderer)
             ImGui::SFML::Update(*this->m_pWindow, deltaTime);
 
-        // Continue
-        this->m_pPlayer->Update(deltaTime.asSeconds());
+        for (auto& entity : this->m_entities)
+        {
+            if(entity)
+                entity->Update(deltaTime.asSeconds());
+        }
     }
 
     void Application::Render()
     {
         this->m_pWindow->clear();
 
-        this->m_pPlayer->Render(*this->m_pWindow);
+        for (auto& entity : this->m_entities)
+        {
+            if(entity)
+                entity->Render(*this->m_pWindow);
+        }
 
         // Last thing to render as we want this on the top layer.
         if(this->m_pImGuiRenderer)
