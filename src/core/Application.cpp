@@ -14,8 +14,15 @@ namespace TerClone
         this->m_videoMode.width = spec.width;
         this->m_pWindow = new sf::RenderWindow(this->m_videoMode, spec.title, spec.style);
 
-        this->m_pSettings = new Utils::Configuration("settings.yaml");
+        this->m_pSettings = new Util::Configuration("resources/settings.yaml");
         this->m_pSettings->Load();
+
+       this->m_spriteSheet.loadFromFile("resources/assets/sheet.png");
+
+        if(this->m_pSettings->Get<bool>("vsync"))
+        {
+            this->m_pWindow->setVerticalSyncEnabled(true);
+        }
 
         if(ImGui::SFML::Init(*this->m_pWindow))
         {
@@ -26,13 +33,15 @@ namespace TerClone
             printf("Failed to initialize ImGui SFML Window\n");
         }
 
-
+        this->m_pPlayer = new Player(this->m_spriteSheet, { 0,0 });
     }
 
     Application::~Application()
     {
         ImGui::SFML::Shutdown();
         delete this->m_pWindow;
+        delete this->m_pSettings;
+        delete this->m_pImGuiRenderer;
     }
 
     void Application::Update(const sf::Time deltaTime)
@@ -41,11 +50,14 @@ namespace TerClone
             ImGui::SFML::Update(*this->m_pWindow, deltaTime);
 
         // Continue
+        this->m_pPlayer->Update(deltaTime.asSeconds());
     }
 
     void Application::Render()
     {
         this->m_pWindow->clear();
+
+        this->m_pPlayer->Render(*this->m_pWindow);
 
         // Last thing to render as we want this on the top layer.
         if(this->m_pImGuiRenderer)

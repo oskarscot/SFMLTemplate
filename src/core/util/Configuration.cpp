@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 
-namespace TerClone::Utils
+namespace TerClone::Util
 {
     Configuration::Configuration(std::filesystem::path path)
         : m_path(std::move(path))
@@ -34,6 +34,7 @@ namespace TerClone::Utils
             printf("Writing default configuration...\n");
 
             Set("version", "1.0");
+            Set("vsync", "true");
             Save();
             return;
         }

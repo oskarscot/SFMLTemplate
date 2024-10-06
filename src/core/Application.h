@@ -1,8 +1,10 @@
 #pragma once
 
 #include "../ui/UIRenderer.h"
-#include "settings/Configuration.h"
+#include "entity/Player.h"
+#include "util/Configuration.h"
 #include "SFML/Graphics/RenderWindow.hpp"
+#include "SFML/Graphics/Texture.hpp"
 #include "SFML/System/String.hpp"
 #include "SFML/Window/Event.hpp"
 
@@ -20,8 +22,10 @@ namespace TerClone
         sf::RenderWindow* m_pWindow = nullptr;
         sf::Event m_event{};
         sf::VideoMode m_videoMode;
+        sf::Texture m_spriteSheet;
         UIRenderer* m_pImGuiRenderer = nullptr;
-        Utils::Configuration* m_pSettings = nullptr;
+        Util::Configuration* m_pSettings = nullptr;
+        Player* m_pPlayer = nullptr;
 
     public:
         explicit Application(const ApplicationWindowSpec& spec);

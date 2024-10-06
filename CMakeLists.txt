@@ -20,8 +20,10 @@ file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/**.cpp")
 add_executable(SFML_TEST ${SOURCES}
         src/ui/ImGuiRenderer.h
         src/ui/UIRenderer.h
-        src/core/settings/Configuration.h
-        src/core/settings/Configuration.cpp
+        src/core/util/Configuration.h
+        src/core/util/Configuration.cpp
+        src/core/entity/Entity.h
+        src/core/entity/Player.h
 )
 
 target_link_libraries(SFML_TEST
@@ -33,3 +35,8 @@ target_link_libraries(SFML_TEST
         ImGui-SFML::ImGui-SFML
         yaml-cpp::yaml-cpp
 )
+
+add_custom_command(TARGET SFML_TEST POST_BUILD COMMAND
+                    ${CMAKE_COMMAND} -E copy_directory
+                    ${CMAKE_SOURCE_DIR}/resources
+                    ${CMAKE_BINARY_DIR}/bin/resources)

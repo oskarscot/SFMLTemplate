@@ -3,7 +3,7 @@
 #include <fstream>
 #include <yaml-cpp/yaml.h>
 
-namespace TerClone::Utils
+namespace TerClone::Util
 {
     class Configuration
     {
