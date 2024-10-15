@@ -1,13 +1,13 @@
-[submodule "lib/imgui-sfml"]
-	path = lib/imgui-sfml
+[submodule "engine/vendor/imgui-sfml"]
+	path = application/vendor/imgui-sfml
 	url = https://github.com/SFML/imgui-sfml
-[submodule "lib/imgui-docking/imgui"]
-	path = lib/imgui-docking/imgui
+[submodule "application/vendor/imgui-docking/imgui"]
+	path = engine/vendor/imgui-docking/imgui
 	url = https://github.com/ocornut/imgui
-[submodule "lib/sfml"]
-	path = lib/sfml
+[submodule "engine/vendor/sfml"]
+	path = engine/vendor/sfml
 	url = https://github.com/SFML/SFML.git
 	branch = 2.6.x
-[submodule "lib/yaml"]
-	path = lib/yaml
+[submodule "engine/vendor/yaml"]
+	path = engine/vendor/yaml
 	url = https://github.com/jbeder/yaml-cpp.git
