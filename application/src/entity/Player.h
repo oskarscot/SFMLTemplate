@@ -1,9 +1,9 @@
 #pragma once
-#include "Entity.h"
+#include "core/entity/Entity.h"
 
-namespace TerClone {
+namespace TowerDefense {
 
-    class Player: public Entity {
+    class Player: public sft::Entity {
     public:
         Player(const sf::Texture& texture, sf::Vector2i sprite_position);
         ~Player() override = default;

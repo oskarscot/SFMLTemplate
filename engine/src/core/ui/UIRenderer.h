@@ -2,9 +2,9 @@
 
 #include "SFML/Graphics/RenderWindow.hpp"
 
-namespace TerClone {
+namespace sft {
 
-    class UIRenderer {
+    class SFT_API UIRenderer {
     public:
         virtual ~UIRenderer() = default;
         virtual void Render(sf::RenderWindow& window) = 0;

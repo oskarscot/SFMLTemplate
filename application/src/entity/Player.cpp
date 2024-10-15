@@ -2,7 +2,7 @@
 
 #include "SFML/Window/Keyboard.hpp"
 
-namespace TerClone {
+namespace TowerDefense {
     Player::Player(const sf::Texture &texture, sf::Vector2i sprite_position)
     {
         SetTexture(texture);
@@ -40,5 +40,4 @@ namespace TerClone {
 
         SetPosition(m_position);
     }
-
 }

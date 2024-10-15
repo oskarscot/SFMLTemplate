@@ -3,7 +3,7 @@
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Texture.hpp"
 
-namespace TerClone
+namespace sft
 {
     class Entity {
     protected:
